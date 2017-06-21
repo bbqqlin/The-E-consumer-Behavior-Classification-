@@ -2,6 +2,8 @@ install.packages("plyr", dependencies = T)
 library(plyr)
 library(readr)
 
+# IMPORT DATASET#
+
 #import survey dataset (Government Office Regions)
 X5661SurveyofPersonalIncomes <- read_csv("~/Desktop/Data/5661SurveyofPersonalIncomes.csv")
 X6988OpinionsSurveyInternetAccessModule <- read_csv("~/Desktop/Data/6988ONSOpinionsSurveyInternetAccessModule.csv")
@@ -10,13 +12,11 @@ X6988OpinionsSurveyInternetAccessModule <- read_csv("~/Desktop/Data/6988ONSOpini
 IndexofMultipleDeprivation2015eng <- read_csv("~/Desktop/Data/IndexofMultipleDeprivation2015eng.csv")
 DemoCen2011 <- read_csv("~/Desktop/Data/INITIAL.csv")
 
-#Split/subset a data frame by factors in Government Office Regions column 
-5661list <- split(X5661SurveyofPersonalIncomes, X5661SurveyofPersonalIncomes$GORA)
-6988list <- split(X6988OpinionsSurveyInternetAccessModule, X6988OpinionsSurveyInternetAccessModule$GORCODE)
+# DATA CLEANING #
 
-#Merge the dataset by region
-total <- merge(5661list, 6988list,by="ID")
 
+
+# K-MEANS CLUSTERING #
 
 # Standardise variables #
 a<-scale(a)
@@ -35,3 +35,9 @@ set.seed(20)
 irisCluster <- kmeans(iris[, 3:4], 3, nstart = 20)
 
 
+#Split/subset a data frame by factors in Government Office Regions column 
+5661list <- split(X5661SurveyofPersonalIncomes, X5661SurveyofPersonalIncomes$GORA)
+6988list <- split(X6988OpinionsSurveyInternetAccessModule, X6988OpinionsSurveyInternetAccessModule$GORCODE)
+
+#Merge the dataset by region
+#total <- merge(5661list, 6988list,by="ID")
