@@ -1,12 +1,21 @@
 install.packages("plyr", dependencies = T)
 library(plyr)
 library(readr)
+
 #import survey dataset (Government Office Regions)
 X5661SurveyofPersonalIncomes <- read_csv("~/Desktop/Data/5661SurveyofPersonalIncomes.csv")
 X6988OpinionsSurveyInternetAccessModule <- read_csv("~/Desktop/Data/6988ONSOpinionsSurveyInternetAccessModule.csv")
+
 #import census dataset (LOSA)
 IndexofMultipleDeprivation2015eng <- read_csv("~/Desktop/Data/IndexofMultipleDeprivation2015eng.csv")
 
+
+#Split/subset a data frame by factors in Government Office Regions column 
+5661list <- split(X5661SurveyofPersonalIncomes, X5661SurveyofPersonalIncomes$GORA)
+6988list <- split(X6988OpinionsSurveyInternetAccessModule, X6988OpinionsSurveyInternetAccessModule$GORCODE)
+
+#Merge the dataset by region
+total <- merge(5661list, 6988list,by="ID")
 
 # Standardise variables #
 a<-scale(a)
