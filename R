@@ -6,9 +6,9 @@ library(readr)
 X5661SurveyofPersonalIncomes <- read_csv("~/Desktop/Data/5661SurveyofPersonalIncomes.csv")
 X6988OpinionsSurveyInternetAccessModule <- read_csv("~/Desktop/Data/6988ONSOpinionsSurveyInternetAccessModule.csv")
 
-#import census dataset (LOSA)
+#import dataset (LSOA)
 IndexofMultipleDeprivation2015eng <- read_csv("~/Desktop/Data/IndexofMultipleDeprivation2015eng.csv")
-
+DemoCen2011 <- read_csv("~/Desktop/Data/INITIAL.csv")
 
 #Split/subset a data frame by factors in Government Office Regions column 
 5661list <- split(X5661SurveyofPersonalIncomes, X5661SurveyofPersonalIncomes$GORA)
