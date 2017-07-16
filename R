@@ -19,14 +19,16 @@ DemoCen2011 <- read_csv("~/Desktop/Data/INITIAL.csv")
 # K-MEANS CLUSTERING #
 
 # Standardise variables #
-a<-scale(a)
+sapply(cluster, class)
+cluster$LSOA<-as.numeric(cluster$LSOA)
+scalecluster<-scale(cluster)
 
 # Elbow plot for best number of clusters - below #
 set.seed(123)
 k.max <- 15
-data <- a
+data <- scalecluster
 wss <- sapply(1:k.max,
-function(k){kmeans(data, k, nstart=50 )$tot.withinss})
+              function(k){kmeans(data, k, nstart=50 )$tot.withinss})
 plot(1:k.max, wss, type="b", pch = 19, frame = FALSE, xlab="Number of clusters K", ylab="Total within-clusters sum of squares")
 abline(v = 3, lty =2)
 
@@ -36,8 +38,10 @@ irisCluster <- kmeans(iris[, 3:4], 3, nstart = 20)
 
 
 #Split/subset a data frame by factors in Government Office Regions column 
+
 5661list <- split(X5661SurveyofPersonalIncomes, X5661SurveyofPersonalIncomes$GORA)
 6988list <- split(X6988OpinionsSurveyInternetAccessModule, X6988OpinionsSurveyInternetAccessModule$GORCODE)
 
 #Merge the dataset by region
-#total <- merge(5661list, 6988list,by="ID")
+
+total <- merge(5661list, 6988list,by="ID")
