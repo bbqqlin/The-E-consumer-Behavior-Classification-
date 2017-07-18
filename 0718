@@ -1,0 +1,45 @@
+# K-MEANS CLUSTERING #
+
+#PACKAɢES
+
+
+if(!require(devtools)) install.packages("devtools")
+devtools::install_github("kassambara/factoextra")
+pkgs <- c("cluster",  "NbClust")
+install.packages(pkgs)
+library("ggplot2", lib.loc="L:/R/R-3.3.0/library")
+library(factoextra)
+library(cluster)
+library(NbClust)
+
+
+# Standardise variables #
+data(X0718cluster)
+head(X0718cluster)
+sapply(X0718cluster, class)
+cluster$LSOA<-as.numeric(cluster$LSOA)
+scalecluster<-scale(X0718cluster)
+is.na(data)
+
+# Elbow plot for best number of clusters - below #
+set.seed(123)
+k.max <- 15
+data <- scalecluster
+km.0718 <- kmeans(data,8)
+wss <- sapply(1:k.max,function(k){kmeans(data, k, nstart=50 )$tot.withinss})
+plot(1:k.max, wss, type="b", pch = 19, frame = FALSE, xlab="Number of clusters K", ylab="Total within-clusters sum of squares")
+abline(v = 3, lty =2)
+
+# Fit k means (Number is K). Starting point. Okay, now that we have seen the data, let us try to cluster it. Since the initial cluster assignments are random, let us set the seed to ensure reproducibility.
+set.seed(20)
+irisCluster <- kmeans(iris[, 3:4], 3, nstart = 20)
+
+
+#Split/subset a data frame by factors in Government Office Regions column 
+
+5661list <- split(X5661SurveyofPersonalIncomes, X5661SurveyofPersonalIncomes$GORA)
+6988list <- split(X6988OpinionsSurveyInternetAccessModule, X6988OpinionsSurveyInternetAccessModule$GORCODE)
+
+#Merge the dataset by region
+
+total <- merge(5661list, 6988list,by="ID")
