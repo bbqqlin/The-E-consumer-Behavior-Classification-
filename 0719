@@ -1,0 +1,28 @@
+
+
+if(!require(devtools)) install.packages("devtools")
+devtools::install_github("kassambara/factoextra")
+pkgs <- c("cluster",  "NbClust")
+install.packages(pkgs)
+library("ggplot2", lib.loc="L:/R/R-3.3.0/library")
+library(factoextra)
+library(cluster)
+library(NbClust)
+
+
+
+sapply(X0719[-1], class)
+scalecluster<-scale(X0719[-1])
+sum(is.na(scalecluster))
+is.integer(scalecluster)
+
+set.seed(123)
+k.max <- 15
+data <- scalecluster
+fviz_nbclust(data, kmeans, method = "wss")
+
+km <- kmeans(data,8)
+mapdata<-X0719[1]
+mapdata$cluster<-km$cluster
+
+write.csv("mapdata.csv",file=mapdata)
