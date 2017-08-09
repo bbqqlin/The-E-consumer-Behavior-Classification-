@@ -25,29 +25,70 @@ write.csv(withoutlondon, "C:/Users/bn16bl/Downloads/withoutlondon0806.csv")
 
 #####################################################
 #K-MEANS CLUSTERING #
+#####################################################
 
-#PACKAɢES
+#######London########
+library(readr)
+london0806 <- read_csv("M:/Data/New folder/london0806.csv")
+View(london0806)
 
+#INSTALL PACKAGES#
 
 if(!require(devtools)) install.packages("devtools")
 devtools::install_github("kassambara/factoextra")
 pkgs <- c("cluster",  "NbClust")
 install.packages(pkgs)
+install.packages("assertthat")
+install.packages('ggplot2', dependencies = TRUE)
+library(assertthat)
 library(ggplot2)
 library(factoextra)
 library(cluster)
 library(NbClust)
 
+
 # Elbow plot for best number of clusters - below #
 
 set.seed(123)
 k.max <- 15
-data <- london0806[-1:-2]
-fviz_nbclust(data, kmeans, method = "wss")
+LOdata <- london0806[-1:-2]
+fviz_nbclust(LOdata, kmeans, method = "wss")
 
-#use the k#
-km <- kmeans(data,6)
-mapdata<-X0719[1]
-mapdata$cluster<-km$cluster
-write.csv("mapdata.csv",file= "mapdata.csv")
-install.packages("nlme", lib="/home/travis/R-bin/lib/R/library/")
+#the best number clusters is 4 #
+km <- kmeans(LOdata,4)
+lomapdata<-london0806
+lomapdata$cluster<-km$cluster
+write.csv(lomapdata,file="lomapdata.csv")
+
+#######Without London########
+library(readr)
+withoutlondon0806 <- read_csv("~/Data/New folder/withoutlondon0806.csv")
+View(withoutlondon0806)
+
+#INSTALL PACKAGES#
+
+if(!require(devtools)) install.packages("devtools")
+devtools::install_github("kassambara/factoextra")
+pkgs <- c("cluster",  "NbClust")
+install.packages(pkgs)
+install.packages("assertthat")
+install.packages('ggplot2', dependencies = TRUE)
+library(assertthat)
+library(ggplot2)
+library(factoextra)
+library(cluster)
+library(NbClust)
+
+
+# Elbow plot for best number of clusters - below #
+
+set.seed(123)
+k.max <- 15
+EWdata <- withoutlondon0806[-1:-2]
+fviz_nbclust(EWdata, kmeans, method = "wss")
+
+#the best number clusters is 4 #
+EWkm <- kmeans(data,4)
+EWmapdata<-withoutlondon0806
+EWmapdata$cluster<-EWkm$cluster
+write.csv(EWmapdata,file="EWmapdata.csv")
