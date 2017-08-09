@@ -50,3 +50,4 @@ km <- kmeans(data,6)
 mapdata<-X0719[1]
 mapdata$cluster<-km$cluster
 write.csv("mapdata.csv",file= "mapdata.csv")
+install.packages("nlme", lib="/home/travis/R-bin/lib/R/library/")
