@@ -80,15 +80,13 @@ library(cluster)
 library(NbClust)
 
 
-# Elbow plot for best number of clusters - below #
-
 set.seed(123)
 k.max <- 15
 EWdata <- withoutlondon0806[-1:-2]
 fviz_nbclust(EWdata, kmeans, method = "wss")
 
-#the best number clusters is 4 #
-EWkm <- kmeans(data,4)
-EWmapdata<-withoutlondon0806
-EWmapdata$cluster<-EWkm$cluster
-write.csv(EWmapdata,file="EWmapdata.csv")
+#the best number clusters is 5 #
+EWkm <- kmeans(EWdata,5)
+ewmapdata<-withoutlondon0806
+ewmapdata$cluster<-EWkm$cluster
+write.csv(ewmapdata,file="EWmapdata.csv")
