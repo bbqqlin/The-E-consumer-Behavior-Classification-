@@ -13,16 +13,76 @@ IndexofMultipleDeprivation2015eng <- read_csv("~/Desktop/Data/IndexofMultipleDep
 DemoCen2011 <- read_csv("~/Desktop/Data/INITIAL.csv")
 
 # DATA CLEANING #
+# data perpration#
+library(readr)
+> data <- read_csv("C:/Users/bn16bl/Desktop/final/data.csv", 
+                   +     col_types = cols(Netincomeafterhousingcosts = col_number(), 
+                                          +         tax_i = col_number()))
+View(data)
+sapply(data, class)
+sum(is.na(data))
+
+lodata <- subset(data, Regionname == "London" )
+ewdata <- subset(data, Regionname != "London")
+
+
+lodata1 <- lodata[-1:-2]
+lodata_use <- lodata1[-2:-11]
+
+ewdata1 <- ewdata[-1:-2]
+ewdata_use <- ewdata1[-2:-11]
+
+sapply(lodata_use, class)
+sapply(ewdata_use, class)
+
+sum(is.na(lodata_use))
+sum(is.na(ewdata_use))
+                    
+#aggregate(cbind(ewdata_use[-1])~LSOA11CD,ewdata_use,mean)
+
+lo <- ddply(lodata_use,.(LSOA11CD),colwise(mean))
+ew <- ddply(ewdata_use,.(LSOA11CD),colwise(mean))
+
+sum(is.na(lo))
+sum(is.na(ew))
+
+
+write.csv(lo, "C:/Users/bn16bl/Downloads/lo.csv")
+write.csv(ew, "C:/Users/bn16bl/Downloads/ew.csv")
+
+############################################
+#corellation# excel
+
+colo <- cor(lo[-1],method = "pearson")
+coew <- cor(ew[-1],method = "pearson")
+
+test <- abline(lm(colo))
+###################################################
+ew0817 <- read_excel("C:/Users/bn16bl/Desktop/cor/ew0817.xlsx")
+lo0818 <- read_excel("C:/Users/bn16bl/Desktop/cor/lo0818.xlsx")
+#normalisation
+normalize <- function(x) {
+  return ((x - min(x)) / (max(x) - min(x)))
+}
+
+loNorm <- as.data.frame(lapply(lo0818, normalize))
+ewNorm <- as.data.frame(lapply(ew0817[-1], normalize))
+sum(is.na(loNorm))
+sum(is.na(ewNorm))
+write.csv(loNorm, "C:/Users/bn16bl/Downloads/loNorm.csv")
+write.csv(ewNorm, "C:/Users/bn16bl/Downloads/ewNorm.csv")
 
 
 
-# K-MEANS CLUSTERING #
 
 # Standardise variables #
 sapply(cluster, class)
 cluster$LSOA<-as.numeric(cluster$LSOA)
 scalecluster<-scale(cluster)
 
+###################################################
+############## K-MEANS CLUSTERING #################
+###################################################
 # Elbow plot for best number of clusters - below #
 set.seed(123)
 k.max <- 15
