@@ -1,0 +1,30 @@
+#data perparation#
+#################################################
+#EW-Dataset#
+library(readr)
+X0809 <- read_csv("C:/Users/bn16bl/Desktop/0809.csv")
+
+#EW-unicode-LSOA#
+library(readxl)
+unicode <- read_excel("C:/Users/bn16bl/Desktop/data/unicode.xlsx")
+names(unicode)<- c("id", "geography","LSOA")
+
+
+#London-unicode-LSOA#
+library(readr)
+X0731london <- read_csv("C:/Users/bn16bl/Desktop/0731london.csv")
+names(X0731london) <- c("LSOA", "Names")
+
+
+#1. london file#
+London <- merge(X0809,X0731london,by="LSOA")
+
+
+#2. with out london file#
+X0809withname <- merge(unicode, X0809, by="LSOA")
+withoutlondon<-X0809withname[!(X0809withname$LSOA %in% X0731london$LSOA),]
+
+sum(is.na(withoutlondon))
+#####
+write.csv(London, "C:/Users/bn16bl/Downloads/london0806.csv")
+write.csv(withoutlondon, "C:/Users/bn16bl/Downloads/withoutlondon0806.csv")
