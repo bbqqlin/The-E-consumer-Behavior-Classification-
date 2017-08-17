@@ -1,0 +1,68 @@
+if(!require(devtools)) install.packages("devtools")
+devtools::install_github("kassambara/factoextra")
+pkgs <- c("cluster",  "NbClust")
+install.packages(pkgs)
+install.packages("assertthat")
+install.packages('ggplot2', dependencies = TRUE)
+library(assertthat)
+library(ggplot2)
+library(factoextra)
+library(cluster)
+library(NbClust)
+
+
+set.seed(123)
+k.max <- 15
+locluster <- loNorm[-1]
+fviz_nbclust(locluster, kmeans, method = "wss")
+
+require(cluster)
+fviz_nbclust(locluster, kmeans, method = "silhouette")
+
+#the best number clusters is 5 #
+lokm <- kmeans(locluster,3)
+lomapdata<-loNorm
+lomapdata$cluster<-lokm$cluster
+write.csv(lomapdata,file="lomapdata.csv")
+
+locluster1 <- subset(lomapdata, cluster==1)
+locluster2 <- subset(lomapdata, cluster==2)
+locluster3 <- subset(lomapdata, cluster==3)
+
+#############11111111############################################
+set.seed(123)
+k.max <- 15
+locl1 <- locluster1[-1]
+fviz_nbclust(locl1, kmeans, method = "wss")
+fviz_nbclust(locl1, kmeans, method = "silhouette")
+
+lo1 <- kmeans(locl1,3)
+lomapdata1 <-locluster1
+lomapdata1$cluster<-lo1$cluster
+write.csv(lomapdata1,file="lomapdata1.csv")
+
+#################2222222222########################################
+
+set.seed(123)
+k.max <- 15
+locl2 <- locluster2[-1]
+fviz_nbclust(locl2, kmeans, method = "wss")
+fviz_nbclust(locl2, kmeans, method = "silhouette")
+
+lo2 <- kmeans(locl2,2)
+lomapdata2 <-locluster2
+lomapdata2$cluster<-lo2$cluster
+write.csv(lomapdata2,file="lomapdata2.csv")
+
+#################3333333333333########################################
+
+set.seed(123)
+k.max <- 15
+locl3 <- locluster3[-1]
+fviz_nbclust(locl3, kmeans, method = "wss")
+fviz_nbclust(locl3, kmeans, method = "silhouette")
+
+lo3 <- kmeans(locl3,3)
+lomapdata3 <-locluster3
+lomapdata3$cluster<-lo3$cluster
+write.csv(lomapdata3,file="lomapdata3.csv")
