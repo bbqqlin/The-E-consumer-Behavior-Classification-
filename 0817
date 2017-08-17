@@ -20,8 +20,70 @@ fviz_nbclust(ewcluster, kmeans, method = "wss")
 
 require(cluster)
 fviz_nbclust(ewcluster, kmeans, method = "silhouette")
+
 #the best number clusters is 5 #
-ewkm <- kmeans(locluster,3)
+ewkm <- kmeans(ewcluster,3)
 ewmapdata<-ewNorm
 ewmapdata$cluster<-ewkm$cluster
 write.csv(ewmapdata,file="ewmapdata.csv")
+
+#############11111111############################################
+
+cluster1 <-subset(ewmapdata, cluster == 1)
+cluster2 <-subset(ewmapdata, cluster == 2)
+cluster3 <-subset(ewmapdata, cluster == 3)
+cluster4 <-subset(ewmapdata, cluster == 4)
+write.csv(cluster4,file="cluster4.csv")
+write.csv(cluster3,file="cluster3.csv")
+write.csv(cluster2,file="cluster2.csv")
+write.csv(cluster1,file="cluster1.csv")
+
+set.seed(123)
+k.max <- 15
+kmcluster1 <- cluster1[-1]
+fviz_nbclust(kmcluster1, kmeans, method = "wss")
+fviz_nbclust(kmcluster1, kmeans, method = "silhouette")
+
+km1 <- kmeans(kmcluster1,2)
+mapdata1 <-cluster1
+mapdata1$cluster<-km1$cluster
+write.csv(mapdata1,file="mapdata1.csv")
+
+#################2222222222########################################
+
+set.seed(123)
+k.max <- 15
+kmcluster2 <- cluster2[-1]
+fviz_nbclust(kmcluster2, kmeans, method = "wss")
+fviz_nbclust(kmcluster2, kmeans, method = "silhouette")
+
+km2 <- kmeans(kmcluster2,3)
+mapdata2 <-cluster2
+mapdata2$cluster<-km2$cluster
+write.csv(mapdata2,file="mapdata2.csv")
+
+#################3333333333333########################################
+
+set.seed(123)
+k.max <- 15
+kmcluster3 <- cluster3[-1]
+fviz_nbclust(kmcluster3, kmeans, method = "wss")
+fviz_nbclust(kmcluster3, kmeans, method = "silhouette")
+
+km3 <- kmeans(kmcluster3,2)
+mapdata3 <-cluster3
+mapdata3$cluster<-km3$cluster
+write.csv(mapdata3,file="mapdata3.csv")
+
+#################444444444444444########################################
+
+set.seed(123)
+k.max <- 15
+kmcluster4 <- cluster4[-1]
+fviz_nbclust(kmcluster4, kmeans, method = "wss")
+fviz_nbclust(kmcluster4, kmeans, method = "silhouette")
+
+km4 <- kmeans(kmcluster4,4)
+mapdata4 <-cluster4
+mapdata4$cluster<-km4$cluster
+write.csv(mapdata4,file="mapdata4.csv")
