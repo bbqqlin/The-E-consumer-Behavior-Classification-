@@ -1,0 +1,24 @@
+if(!require(devtools)) install.packages("devtools")
+devtools::install_github("kassambara/factoextra")
+pkgs <- c("cluster",  "NbClust")
+install.packages(pkgs)
+install.packages("assertthat")
+install.packages('ggplot2', dependencies = TRUE)
+library(assertthat)
+library(ggplot2)
+library(factoextra)
+library(cluster)
+library(NbClust)
+
+set.seed(123)
+k.max <- 15
+ewcluster <- ewNorm[-1]
+fviz_nbclust(ewcluster, kmeans, method = "wss")
+
+require(cluster)
+fviz_nbclust(ewcluster, kmeans, method = "silhouette")
+#the best number clusters is 5 #
+ewkm <- kmeans(locluster,3)
+ewmapdata<-ewNorm
+ewmapdata$cluster<-ewkm$cluster
+write.csv(ewmapdata,file="ewmapdata.csv")
