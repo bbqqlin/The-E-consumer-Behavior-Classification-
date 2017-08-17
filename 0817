@@ -9,6 +9,9 @@ library(ggplot2)
 library(factoextra)
 library(cluster)
 library(NbClust)
+library(readr)
+
+ewNorm <- read_csv("/nobackup/pmjzhai/R/ewNorm.csv")
 
 set.seed(123)
 k.max <- 15
