@@ -11,6 +11,8 @@ library(cluster)
 library(NbClust)
 library(readr)
 
+setwd("C:\Users\bn16bl\Desktop")
+
 ewNorm <- read_csv("/nobackup/pmjzhai/R/ewNorm.csv")
 
 set.seed(123)
