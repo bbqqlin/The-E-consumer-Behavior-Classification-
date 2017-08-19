@@ -1,3 +1,5 @@
+install.packages("corrplot")
 library(corrplot)
-x <- cor(iris[1:4])
-corrplot(x, type="upper", order="hclust")
+lo <- lo0818[-1]
+locor <- cor(lo[-1],method = "pearson")
+corrplot(locor, method = "ellipse")
