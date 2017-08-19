@@ -1,10 +1,15 @@
 install.packages("corrplot")
 library(corrplot)
 library(readr)
+######################London############################
 lo0819 <- read_csv("~/challenge/percentage/lo0819.csv")
 sum(is.na(lo0819))
 locor <- cor(lo0819[-1],method = "pearson")
 corrplot(locor, method = "circle")
-write.csv(locor,file="locor3.csv")
-
-
+write.csv(locor,file="locor.csv")
+#######################E&W##############################
+ew0819 <- read_csv("~/challenge/percentage/ew0819.csv")
+sum(is.na(ew0819))
+ewcor <- cor(ew0819[-1],method = "pearson")
+corrplot(ewcor, method = "circle")
+write.csv(locor,file="ewcor.csv")
