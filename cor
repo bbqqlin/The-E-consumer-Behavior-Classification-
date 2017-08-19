@@ -1,5 +1,10 @@
 install.packages("corrplot")
 library(corrplot)
-lo <- lo0818[-1]
-locor <- cor(lo[-1],method = "pearson")
-corrplot(locor, method = "ellipse")
+library(readr)
+lo0819 <- read_csv("~/challenge/percentage/lo0819.csv")
+sum(is.na(lo0819))
+locor <- cor(lo0819[-1],method = "pearson")
+corrplot(locor, method = "circle")
+write.csv(locor,file="locor3.csv")
+
+
