@@ -1,0 +1,4 @@
+library(readr)
+lo0818 <- read_csv("/nobackup/pmjzhai/R/lo0818.csv")
+
+multi.hist(lo)
