@@ -15,39 +15,39 @@ setwd("C:\Users\bn16bl\Desktop")
 
 ewNorm <- read_csv("/nobackup/pmjzhai/R/ewNorm.csv")
 
-set.seed(123)
+set.seed(153)
 k.max <- 15
-ewcluster <- ewNorm[-1]
-fviz_nbclust(ewcluster, kmeans, method = "wss")
+ewcluster <- zew[-1]
+fviz_nbclust(zew, kmeans, method = "wss")
 
 require(cluster)
 fviz_nbclust(ewcluster, kmeans, method = "silhouette")
 
 #the best number clusters is 5 #
-ewkm <- kmeans(ewcluster,3)
-ewmapdata<-ewNorm
+ewkm <- kmeans(ewcluster,4)
+ewmapdata<-zew
 ewmapdata$cluster<-ewkm$cluster
 write.csv(ewmapdata,file="ewmapdata.csv")
 
 #############11111111############################################
 
-cluster1 <-subset(ewmapdata, cluster == 1)
-cluster2 <-subset(ewmapdata, cluster == 2)
-cluster3 <-subset(ewmapdata, cluster == 3)
-cluster4 <-subset(ewmapdata, cluster == 4)
-write.csv(cluster4,file="cluster4.csv")
-write.csv(cluster3,file="cluster3.csv")
-write.csv(cluster2,file="cluster2.csv")
-write.csv(cluster1,file="cluster1.csv")
+ewcluster1 <-subset(ewmapdata, cluster == 1)
+ewcluster2 <-subset(ewmapdata, cluster == 2)
+ewcluster3 <-subset(ewmapdata, cluster == 3)
+ewcluster4 <-subset(ewmapdata, cluster == 4)
+write.csv(ewcluster4,file="ewcluster4.csv")
+write.csv(ewcluster3,file="ewcluster3.csv")
+write.csv(ewcluster2,file="ewcluster2.csv")
+write.csv(ewcluster1,file="ewcluster1.csv")
 
-set.seed(123)
+set.seed(456)
 k.max <- 15
-kmcluster1 <- cluster1[-1]
-fviz_nbclust(kmcluster1, kmeans, method = "wss")
+kmcluster1 <- ewcluster1[-1]
+#fviz_nbclust(kmcluster1, kmeans, method = "wss")
 fviz_nbclust(kmcluster1, kmeans, method = "silhouette")
 
 km1 <- kmeans(kmcluster1,2)
-mapdata1 <-cluster1
+mapdata1 <-ewcluster1
 mapdata1$cluster<-km1$cluster
 write.csv(mapdata1,file="mapdata1.csv")
 
@@ -55,12 +55,11 @@ write.csv(mapdata1,file="mapdata1.csv")
 
 set.seed(123)
 k.max <- 15
-kmcluster2 <- cluster2[-1]
-fviz_nbclust(kmcluster2, kmeans, method = "wss")
+kmcluster2 <- ewcluster2[-1]
 fviz_nbclust(kmcluster2, kmeans, method = "silhouette")
 
-km2 <- kmeans(kmcluster2,3)
-mapdata2 <-cluster2
+km2 <- kmeans(kmcluster2,2)
+mapdata2 <-ewcluster2
 mapdata2$cluster<-km2$cluster
 write.csv(mapdata2,file="mapdata2.csv")
 
@@ -68,9 +67,9 @@ write.csv(mapdata2,file="mapdata2.csv")
 
 set.seed(123)
 k.max <- 15
-kmcluster3 <- cluster3[-1]
-fviz_nbclust(kmcluster3, kmeans, method = "wss")
-fviz_nbclust(kmcluster3, kmeans, method = "silhouette")
+kmcluster3 <- ewcluster3[-1]
+#fviz_nbclust(kmcluster3, kmeans, method = "wss")
+#fviz_nbclust(kmcluster3, kmeans, method = "silhouette",iter.max=30)
 
 km3 <- kmeans(kmcluster3,2)
 mapdata3 <-cluster3
@@ -81,11 +80,10 @@ write.csv(mapdata3,file="mapdata3.csv")
 
 set.seed(123)
 k.max <- 15
-kmcluster4 <- cluster4[-1]
-fviz_nbclust(kmcluster4, kmeans, method = "wss")
-fviz_nbclust(kmcluster4, kmeans, method = "silhouette")
+kmcluster4 <- ewcluster4[-1]
+fviz_nbclust(kmcluster4, kmeans, method = "silhouette",iter.max=30)
 
-km4 <- kmeans(kmcluster4,4)
+km4 <- kmeans(kmcluster4,2)
 mapdata4 <-cluster4
 mapdata4$cluster<-km4$cluster
 write.csv(mapdata4,file="mapdata4.csv")
