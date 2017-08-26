@@ -13,14 +13,14 @@ library(NbClust)
 
 set.seed(123)
 k.max <- 15
-locluster <- loNorm[-1]
+locluster <- zlo[-1]
 fviz_nbclust(locluster, kmeans, method = "wss")
 
 require(cluster)
 fviz_nbclust(locluster, kmeans, method = "silhouette")
 
 #the best number clusters is 5 #
-lokm <- kmeans(zlo[-1],3)
+lokm <- kmeans(locluster,3)
 lomapdata<-zlo
 lomapdata$cluster<-lokm$cluster
 write.csv(lomapdata,file="lomapdata.csv")
@@ -28,12 +28,15 @@ write.csv(lomapdata,file="lomapdata.csv")
 locluster1 <- subset(lomapdata, cluster==1)
 locluster2 <- subset(lomapdata, cluster==2)
 locluster3 <- subset(lomapdata, cluster==3)
+write.csv(locluster3,file="locluster3.csv")
+write.csv(locluster2,file="locluster2.csv")
+write.csv(locluster1,file="locluster1.csv")
 
 #############11111111############################################
 set.seed(123)
 k.max <- 15
 locl1 <- locluster1[-1]
-
+fviz_nbclust(locl1, kmeans, method = "wss")
 fviz_nbclust(locl1, kmeans, method = "silhouette")
 
 lo1 <- kmeans(locl1,3)
